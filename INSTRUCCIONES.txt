@@ -1,0 +1,10 @@
+-PARA LEVANTAR EL PROYECTO SISTEMAGESTION
+1 - instalar node.js   (recomendable version 12.22.0)  https://nodejs.org/es/download/releases/
+2  el proyecto backphp  copiar y pergar en el XAMP/htdocs
+3 ejecutar el scrip que esta en al carpeta  BD
+3 una vez instalado
+    . abrir proyecto en el ide VSCode-  abrir la consola ejecutar
+	npm install
+	npm run serve
+4 y  listo
+

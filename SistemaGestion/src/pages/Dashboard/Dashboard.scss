@@ -1,0 +1,493 @@
+@import '../../styles/app';
+
+.dashboard-page {
+  .requests-table {
+    td, th {
+      font-weight: $font-weight-normal;
+    }
+
+    tbody tr {
+      td {
+        min-width: 100px;
+      }
+    }
+  }
+
+  .visitElement {
+    max-width: 50%;
+    width: 33%;
+    min-width: 65px;
+  }
+}
+// dsd
+
+
+//estolos
+
+.container{
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.progressbar li{
+  float: left;
+  width: 20%;
+  position: relative;
+  text-align: center;
+}
+.progressbar li:before{
+  content:counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #bebebe;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  line-height: 27px;
+  background: white;
+  color: #bebebe;
+  text-align: center;
+  font-weight: bold;
+}
+.progressbar{
+  counter-reset: step;
+}
+.progressbar li:after{
+  content: '';
+  position: absolute;
+  width:100%;
+  height: 3px;
+  background: #979797;
+  top: 15px;
+  left: -50%;
+  z-index: -1;
+}
+.progressbar li:first-child:after{
+  content: none;
+  }
+
+  .progressbar li.active + li:after{
+    background: #3aac5d;
+   }
+  
+   .progressbar li.active + li:before{
+    border-color: #3aac5d;
+    background: #3aac5d;
+    color: white
+    }
+
+
+    @mixin shadow($level: 1) {
+      @if $level==1 {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      @else if $level==2 {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      }
+      @else if $level==3 {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      }
+      @else if $level==4 {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      }
+      @else if $level==5 {
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+      }
+    }
+    
+    @mixin breakpoint($class) {
+      @if $class==xs {
+        @media (max-width: 767px) {
+          @content;
+        }
+      }
+      @else if $class==sm {
+        @media (min-width: 768px) {
+          @content;
+        }
+      }
+      @else if $class==md {
+        @media (min-width: 992px) {
+          @content;
+        }
+      }
+      @else if $class==lg {
+        @media (min-width: 1200px) {
+          @content;
+        }
+      }
+      @else {
+        @warn "Breakpoint mixin supports: xs, sm, md, lg";
+      }
+    }
+    
+    .stepper-box {
+      background-color: white;
+      @include shadow(1);
+      min-height: 200px;
+      .top {
+        .stepper-button-top {
+          z-index: 20;
+          padding: .4rem;
+          border-radius: 100rem;
+          cursor: pointer;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          &.next {
+            border: 2px solid #3383c8;
+            color: #3383c8;
+            right: 1%;
+            &.deactivated {
+              border: 2px solid #cccccc !important;
+              color: #cccccc;
+              cursor: not-allowed !important;
+            }
+          }
+          &.previous {
+            color: #333333;
+            left: 1%;
+          }
+        }
+        display: flex;
+        align-items: center;
+        position: relative;
+        justify-content: center;
+        .divider-line {
+          border-bottom: 1px solid #cccccc;
+          height: 2px;
+          position: absolute;
+          @include breakpoint(xs) {
+            width: 90%;
+          }
+        }
+        .steps-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          position: relative;
+          width: 95%;
+          left: 0;
+          padding: 2% 4%;
+          @include breakpoint(xs) {
+            width: 90%;
+            justify-content: center;
+          }
+          .step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            @include breakpoint(xs) {
+              width: 100% !important;
+            }
+            &.deactivated {
+              @include breakpoint(xs) {
+                display: none;
+              }
+              .circle {
+                i {
+                  background-color: #bbbbbb !important;
+                }
+              }
+              .step-title {
+                opacity: .35;
+              }
+            }
+            .circle {
+              margin-bottom: 1rem;
+              padding: 0 1rem;
+              background-color: white;
+              i {
+                background-color: #3383c8;
+                color: #fff;
+                border-radius: 100rem;
+                padding: 1rem;
+              }
+            }
+            .step-title {
+              position: absolute;
+              top: 90%;
+              width: 100%;
+              h1,
+              h2,
+              h3,
+              h4,
+              h5 {
+                margin: 0 0 .2rem 0;
+                color: #333333;
+                font-weight: bold;
+              }
+              .step-subtitle {
+                font-weight: lighter;
+                margin: 0;
+                color: #555555;
+              }
+            }
+          }
+        }
+      }
+      .content {
+        overflow: hidden;
+        margin: 1.5rem 0;
+      }
+      .bottom {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        border-top: 1px solid #cccccc;
+        &.only-next {
+          justify-content: flex-end;
+        }
+        .stepper-button {
+          padding: .5rem 1rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          &.next {
+            background-color: #3383c8;
+            color: white;
+            @include shadow(1);
+            &.deactivated {
+              background-color: #cccccc !important;
+              cursor: not-allowed !important;
+            }
+          }
+          &.previous {
+            color: #333333;
+          }
+        }
+      }
+    }
+
+
+
+
+    @import 'node_modules/vue-kanban/src/assets/kanban.scss';
+   // @import './assets/kanban.scss';
+
+    $on-hold: #FB7D44;
+    $in-progress: #2A92BF;
+    $needs-review: #F4CE46;
+    $approved: #00B961;
+  
+    * {
+      box-sizing: border-box;
+    }
+  
+    body {
+      background: #33363D;
+      color: white;
+      font-family: 'Lato';
+      font-weight: 300;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+  
+    .drag-column {
+      .drag-column-header > div {
+        width: 100%;
+        h2 > a {
+          float: right;
+        }
+      }
+  
+      .drag-column-footer > div {
+          margin-left: 10px;
+          a {
+              text-decoration: none;
+              color: white;
+              &:hover {
+                  text-decoration: underline;
+              }
+          }
+      }
+  
+      &-on-hold {
+        .drag-column-header,
+        .is-moved,
+        .drag-options {
+          background: $on-hold;
+        }
+      }
+  
+      &-in-progress {
+        .drag-column-header,
+        .is-moved,
+        .drag-options {
+          background: $in-progress;
+        }
+      }
+  
+      &-needs-review {
+        .drag-column-header,
+        .is-moved,
+        .drag-options{
+          background: $needs-review;
+        }
+      }
+  
+      &-approved {
+        .drag-column-header,
+        .is-moved,
+        .drag-options {
+          background: $approved;
+        }
+      }
+    }
+  
+    .section {
+      padding: 20px;
+      text-align: center;
+  
+      a {
+        color: white;
+        text-decoration: none;
+        font-weight: 300;
+      }
+  
+      h4 {
+        font-weight: 400;
+        a {
+          font-weight: 600;
+        }
+      }
+    }
+
+    //otro
+
+    $ease-out: all .3s cubic-bezier(0.23, 1, 0.32, 1);
+
+ul.drag-list, ul.drag-inner-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.drag-container {
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.drag-list {
+    display: flex;
+    align-items: flex-start;
+
+    @media (max-width: 690px) {
+        display: block;
+    }
+}
+
+.drag-column {
+    flex: 1;
+    margin: 0 10px;
+    position: relative;
+    background: rgba(black, 0.2);
+    overflow: hidden;
+
+    @media (max-width: 690px) {
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 0.8rem;
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+}
+
+.drag-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.drag-inner-list {
+    min-height: 50px;
+    color: white;
+}
+
+.drag-item {
+    padding: 10px;
+    margin: 10px;
+    height: 100px;
+    background: rgba(black, 0.4);
+    transition: $ease-out;
+
+    &.is-moving {
+        transform: scale(1.5);
+        background: rgba(black, 0.8);
+    }
+
+}
+
+.drag-header-more {
+    cursor: pointer;
+}
+
+.drag-options {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: $ease-out;
+
+    &.active {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    &-label {
+        display: block;
+        margin: 0 0 5px 0;
+
+        input {
+            opacity: 0.6;
+        }
+
+        span {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-left: 5px;
+        }
+    }
+}
+
+/* Dragula CSS  */
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+    list-style-type: none;
+}
+
+.gu-hide {
+  display: none !important;
+}
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.gu-transit {
+  opacity: 0.2;
+}
